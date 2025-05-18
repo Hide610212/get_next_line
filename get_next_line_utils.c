@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmuto <hmuto@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 14:01:19 by hmuto             #+#    #+#             */
-/*   Updated: 2025/05/15 18:00:02 by hmuto            ###   ########.fr       */
+/*   Updated: 2025/05/18 12:14:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,61 +62,104 @@ char *ft_strdup(const char *s)
     return dup;
 }
 
-// Extract substring of length len from s starting at index 0
-char *ft_substr(const char *s, unsigned int start, size_t len)
+// char *ft_strjoin_and_free(char *s1, const char *s2)
+// {
+//     size_t len1;
+//     size_t len2;
+//     size_t i;
+//     size_t j;
+//     char *joined;
+
+//     len1 = ft_strlen(s1);
+//     len2 = ft_strlen(s2);
+//     joined = malloc(len1 + len2 + 1);
+//     if (!joined)
+//         return NULL;
+//     i = 0;
+//     while (i < len1)
+//     {
+//         joined[i] = s1[i];
+//         i++;
+//     }
+//     j = 0;
+//     while (j < len2)
+//     {
+//         joined[i + j] = s2[j];
+//         j++;
+//     }
+//     joined[len1 + len2] = '\0';
+//     free(s1);
+//     return joined;
+// }
+
+// char *ft_strjoin_and_free(char *s1, const char *s2)
+// {
+//     size_t i;
+//     size_t j;
+//     char *joined;
+
+//     joined = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+//     if (!joined)
+//         return NULL;
+//     i = 0;
+//     while (i < ft_strlen(s1))
+//     {
+//         joined[i] = s1[i];
+//         i++;
+//     }
+//     j = 0;
+//     while (j < ft_strlen(s2))
+//     {
+//         joined[i + j] = s2[j];
+//         j++;
+//     }
+//     joined[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+//     free(s1);
+//     return joined;
+// }
+
+char	*ft_strjoin_and_free(char *s1, const char *s2)
 {
-    size_t slen;
-    size_t alloc_len;
-    size_t i;
-    char *sub;
+	char	*s3;
+	char	*p3;
+	char	*p1;
 
-    slen = ft_strlen(s);
-    if (start >= slen)
-        return NULL;
-    alloc_len = slen - start;
-    if (alloc_len > len)
-        alloc_len = len;
-
-    sub = malloc(alloc_len + 1);
-    if (!sub)
-        return NULL;
-
-    i = 0;
-    while (i < alloc_len)
+	if (!s1)
+		s1 = ft_strdup("");
+    if (!s2)
+		return NULL;
+    s3 = malloc (sizeof (*s3) * (ft_strlen (s1) + ft_strlen (s2) + 1));
+	if (!s3)
     {
-        sub[i] = s[start + i];
-        i++;
+        free(s1);
+		return (NULL);
     }
-    sub[i] = '\0';
-    return sub;
+    p3 = s3;
+	p1 = s1;
+	while (*p1)
+		*p3++ = *p1++;
+	while (*s2)
+		*p3++ = *s2++;
+	*p3 = 0;
+	free (s1);
+	return (s3);
 }
 
-char *ft_strjoin_and_free(char *s1, const char *s2)
+char	*ft_substr(const char *str, unsigned int start, size_t size)
 {
-    size_t len1;
-    size_t len2;
-    size_t i;
-    size_t j;
-    char *joined;
+	size_t	len;
+	char	*sub;
 
-    len1 = ft_strlen(s1);
-    len2 = ft_strlen(s2);
-    joined = malloc(len1 + len2 + 1);
-    if (!joined)
-        return NULL;
-    i = 0;
-    while (i < len1)
-    {
-        joined[i] = s1[i];
-        i++;
-    }
-    j = 0;
-    while (j < len2)
-    {
-        joined[i + j] = s2[j];
-        j++;
-    }
-    joined[len1 + len2] = '\0';
-    free(s1);
-    return joined;
+	len = ft_strlen (str);
+	if (start >= len)
+		return (ft_strdup(""));
+	if (len - start < size)
+		size = len - start;
+	sub = malloc (sizeof (*sub) * (size + 1));
+	if (!sub)
+		return (NULL);
+	sub[size] = 0;
+	while (size--)
+		sub[size] = str[start + size];
+	return (sub);
 }
