@@ -6,7 +6,7 @@
 /*   By: hmuto <hmuto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 14:01:49 by hmuto             #+#    #+#             */
-/*   Updated: 2025/05/15 14:02:03 by hmuto            ###   ########.fr       */
+/*   Updated: 2025/05/19 15:00:21 by hmuto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*read_and_save(int fd, char *saved)
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
-		return NULL;
+		return (NULL);
 	r = 1;
 	while (!ft_strchr(saved, '\n') && r > 0)
 	{
@@ -61,7 +61,7 @@ char	*read_and_save(int fd, char *saved)
 		{
 			free(buffer);
 			free(saved);
-			return NULL;
+			return (NULL);
 		}
 		buffer[r] = '\0';
 		saved = ft_strjoin_and_free(saved, buffer);

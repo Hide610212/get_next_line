@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmuto <hmuto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 14:01:19 by hmuto             #+#    #+#             */
-/*   Updated: 2025/05/18 12:14:19 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/19 15:00:32 by hmuto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,52 @@
 #include <stdlib.h>
 
 // Calculate length of string
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    size_t len = 0;
-    if (!s)
-        return 0;
-    while (s[len])
-        len++;
-    return len;
+	size_t	len;
+
+	len = 0;
+	if (!s)
+		return (0);
+	while (s[len])
+		len++;
+	return (len);
 }
 
 // Locate first occurrence of char c in string s
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-    if (!s)
-        return NULL;
-    while (*s)
-    {
-        if (*s == (char)c)
-            return (char *)s;
-        s++;
-    }
-    if (c == '\0')
-        return (char *)s;
-    return NULL;
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if (c == '\0')
+		return ((char *)s);
+	return (NULL);
 }
 
-char *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-    size_t len;
-    char *dup;
-    size_t i;
+	size_t	len;
+	char	*dup;
+	size_t	i;
 
-    len = ft_strlen(s);
-    dup = malloc(len + 1);
-
-    if (dup == NULL)
-        return NULL;
-
-    i = 0;
-    while (i < len)
-    {
-        dup[i] = s[i];
-        i++;
-    }
-    dup[i] = '\0';
-    return dup;
+	len = ft_strlen(s);
+	dup = malloc(len + 1);
+	if (dup == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
 
 // char *ft_strjoin_and_free(char *s1, const char *s2)
@@ -74,7 +74,7 @@ char *ft_strdup(const char *s)
 //     len2 = ft_strlen(s2);
 //     joined = malloc(len1 + len2 + 1);
 //     if (!joined)
-//         return NULL;
+//         return (NULL);
 //     i = 0;
 //     while (i < len1)
 //     {
@@ -89,7 +89,7 @@ char *ft_strdup(const char *s)
 //     }
 //     joined[len1 + len2] = '\0';
 //     free(s1);
-//     return joined;
+//     return (joined);
 // }
 
 // char *ft_strjoin_and_free(char *s1, const char *s2)
@@ -100,7 +100,7 @@ char *ft_strdup(const char *s)
 
 //     joined = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 //     if (!joined)
-//         return NULL;
+//         return (NULL);
 //     i = 0;
 //     while (i < ft_strlen(s1))
 //     {
@@ -115,7 +115,7 @@ char *ft_strdup(const char *s)
 //     }
 //     joined[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 //     free(s1);
-//     return joined;
+//     return (joined);
 // }
 
 char	*ft_strjoin_and_free(char *s1, const char *s2)
@@ -126,22 +126,22 @@ char	*ft_strjoin_and_free(char *s1, const char *s2)
 
 	if (!s1)
 		s1 = ft_strdup("");
-    if (!s2)
-		return NULL;
-    s3 = malloc (sizeof (*s3) * (ft_strlen (s1) + ft_strlen (s2) + 1));
-	if (!s3)
-    {
-        free(s1);
+	if (!s2)
 		return (NULL);
-    }
-    p3 = s3;
+	s3 = malloc(sizeof(*s3) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!s3)
+	{
+		free(s1);
+		return (NULL);
+	}
+	p3 = s3;
 	p1 = s1;
 	while (*p1)
 		*p3++ = *p1++;
 	while (*s2)
 		*p3++ = *s2++;
 	*p3 = 0;
-	free (s1);
+	free(s1);
 	return (s3);
 }
 
@@ -150,12 +150,12 @@ char	*ft_substr(const char *str, unsigned int start, size_t size)
 	size_t	len;
 	char	*sub;
 
-	len = ft_strlen (str);
+	len = ft_strlen(str);
 	if (start >= len)
 		return (ft_strdup(""));
 	if (len - start < size)
 		size = len - start;
-	sub = malloc (sizeof (*sub) * (size + 1));
+	sub = malloc(sizeof(*sub) * (size + 1));
 	if (!sub)
 		return (NULL);
 	sub[size] = 0;
